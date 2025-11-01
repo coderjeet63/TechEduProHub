@@ -15,10 +15,6 @@ const PORT = process.env.PORT || 3000;
 // ... (baaki saara code waisa hi hai) ...
 app.use(express.json());
 
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://techeduprohub.onrender.com", // your frontend deployed URL
-];
 
 
 app.use(
