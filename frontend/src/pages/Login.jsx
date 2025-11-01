@@ -14,16 +14,21 @@ function Login() {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
 
+  // === Handle Login ===
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const res = await axios.post(`${backendUrl}/api/auth/login`, {
         email,
         password,
-      });
+      }, { withCredentials: true }); // ✅ include cookies (refresh token)
 
-      if (res.data?.token) {
-        login(res.data.token, res.data.user);
+      // ✅ backend sends { accessToken, name, email }
+      if (res.data?.accessToken) {
+        login(res.data.accessToken, {
+          name: res.data.name,
+          email: res.data.email,
+        });
         alert("Login successful!");
         navigate("/");
       } else {
@@ -35,6 +40,7 @@ function Login() {
     }
   };
 
+  // === Handle Signup ===
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
@@ -51,15 +57,28 @@ function Login() {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    alert("You have been logged out!");
-    setActive("login");
+  // === Handle Logout ===
+  const handleLogout = async () => {
+    try {
+      await axios.post(`${backendUrl}/api/auth/logout`, {}, { withCredentials: true });
+
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+
+      alert("You have been logged out!");
+      setActive("login");
+    } catch (error) {
+      console.error("Logout failed:", error);
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      setActive("login");
+    }
   };
 
   return (
     <section className="user">
       <div className="user_options-container">
+        {/* === SIDE TEXT === */}
         <div className="user_options-text">
           <div className="user_options-unregistered">
             <h2 className="user_unregistered-title">Don't have an account?</h2>
@@ -88,11 +107,13 @@ function Login() {
           </div>
         </div>
 
+        {/* === FORMS === */}
         <div
           className={`user_options-forms ${
             active === "signup" ? "bounceLeft" : "bounceRight"
           }`}
         >
+          {/* === LOGIN FORM === */}
           <div
             className={`user_forms-login ${
               active === "login" ? "showForm" : ""
@@ -156,6 +177,7 @@ function Login() {
             </form>
           </div>
 
+          {/* === SIGNUP FORM === */}
           <div
             className={`user_forms-signup ${
               active === "signup" ? "showForm" : ""

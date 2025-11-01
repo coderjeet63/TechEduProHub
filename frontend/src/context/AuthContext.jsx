@@ -11,6 +11,7 @@ export const AuthProvider = ({ children }) => {
     return storedUser ? JSON.parse(storedUser) : null;
   });
 
+  
   useEffect(() => {
     if (token && !isTokenValid(token)) {
       logout();
