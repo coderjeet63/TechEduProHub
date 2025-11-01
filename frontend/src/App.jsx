@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route , Routes } from 'react-router-dom'
-import Navbar from './components/NavBar'
+import NavBar from './components/NavBar'
 import Home from './pages/Home'
 import Footer from './components/Footer'
 import ServicesPage from "./pages/ServicesPage";
@@ -16,7 +16,7 @@ import Login from './pages/Login.jsx'
 function App() {
   return (
     <div>
-      <Navbar />
+      <NavBar />
       <Routes>
         <Route path='/' element={<Home />}/>
         <Route path="/services/:serviceName" element={<ServicesPage />} />
