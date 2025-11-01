@@ -1,198 +1,8 @@
-// import React, { useState, useContext } from "react";
-// import axios from "axios";
-// import "../Login.css";
-// import { Link, useNavigate } from "react-router-dom";
-// import { AuthContext } from "../context/AuthContext"; // ✅ Import AuthContext
-
-// const backendUrl = import.meta.env.VITE_BACKEND_URL;
-
-// function Login() {
-//   const [active, setActive] = useState("login");
-//   const [email, setEmail] = useState("");
-//   const [password, setPassword] = useState("");
-//   const [name, setName] = useState("");
-//   const navigate = useNavigate();
-//   const { login } = useContext(AuthContext); // ✅ from context
-
-//   // 🔹 Login handler
-//   const handleLogin = async (e) => {
-//     e.preventDefault();
-//     try {
-//       const res = await axios.post(`${backendUrl}/api/auth/login`, {
-//         email,
-//         password,
-//       });
-
-//       // ✅ Expecting backend to return { token, user }
-//       if (res.data?.token) {
-//         login(res.data.token, res.data.user); // ✅ Save in context + localStorage
-//         alert("Login successful!");
-//         navigate("/add-to-cart");
-//       } else {
-//         alert("Invalid response from server.");
-//       }
-//     } catch (err) {
-//       console.error(err.response?.data || err.message);
-//       alert("Login failed!");
-//     }
-//   };
-
-//   // 🔹 Signup handler
-//   const handleSignup = async (e) => {
-//     e.preventDefault();
-//     try {
-//       const res = await axios.post(`${backendUrl}/api/auth/register`, {
-//         name,
-//         email,
-//         password,
-//       });
-
-//       alert("Signup successful! Please login now.");
-//       setActive("login"); // ✅ switch to login form
-//     } catch (err) {
-//       console.error(err.response?.data || err.message);
-//       alert("Signup failed!");
-//     }
-//   };
-
-//   return (
-//     <section className="user">
-//       <div className="user_options-container">
-//         {/* Left / Right Info Panels */}
-//         <div className="user_options-text">
-//           <div className="user_options-unregistered">
-//             <h2 className="user_unregistered-title">Don't have an account?</h2>
-//             <p className="user_unregistered-text">
-//               Sign up to explore our collections and enjoy shopping!
-//             </p>
-//             <button
-//               className="user_unregistered-signup"
-//               onClick={() => setActive("signup")}
-//             >
-//               Sign up
-//             </button>
-//           </div>
-
-//           <div className="user_options-registered">
-//             <h2 className="user_registered-title">Have an account?</h2>
-//             <p className="user_registered-text">
-//               Log in to continue your shopping experience.
-//             </p>
-//             <button
-//               className="user_registered-login"
-//               onClick={() => setActive("login")}
-//             >
-//               Login
-//             </button>
-//           </div>
-//         </div>
-
-//         {/* Forms */}
-//         <div
-//           className={`user_options-forms ${
-//             active === "signup" ? "bounceLeft" : "bounceRight"
-//           }`}
-//         >
-//           {/* Login Form */}
-//           <div
-//             className={`user_forms-login ${
-//               active === "login" ? "showForm" : ""
-//             }`}
-//           >
-//             <h2 className="forms_title">Login</h2>
-//             <form className="forms_form" onSubmit={handleLogin}>
-//               <fieldset className="forms_fieldset">
-//                 <div className="forms_field">
-//                   <input
-//                     onChange={(e) => setEmail(e.target.value)}
-//                     type="email"
-//                     placeholder="Email"
-//                     className="forms_field-input"
-//                     required
-//                   />
-//                 </div>
-//                 <div className="forms_field">
-//                   <input
-//                     onChange={(e) => setPassword(e.target.value)}
-//                     type="password"
-//                     placeholder="Password"
-//                     className="forms_field-input"
-//                     required
-//                   />
-//                 </div>
-//               </fieldset>
-//               <div className="forms_buttons">
-//                 <button type="button" className="forms_buttons-forgot">
-//                   Forgot password?
-//                 </button>
-//                 <input
-//                   type="submit"
-//                   value="Log In"
-//                   className="forms_buttons-action"
-//                 />
-//               </div>
-//             </form>
-//           </div>
-
-//           {/* Signup Form */}
-//           <div
-//             className={`user_forms-signup ${
-//               active === "signup" ? "showForm" : ""
-//             }`}
-//           >
-//             <h2 className="forms_title">Sign Up</h2>
-//             <form className="forms_form" onSubmit={handleSignup}>
-//               <fieldset className="forms_fieldset">
-//                 <div className="forms_field">
-//                   <input
-//                     onChange={(e) => setName(e.target.value)}
-//                     type="text"
-//                     placeholder="Full Name"
-//                     className="forms_field-input"
-//                     required
-//                   />
-//                 </div>
-//                 <div className="forms_field">
-//                   <input
-//                     onChange={(e) => setEmail(e.target.value)}
-//                     type="email"
-//                     placeholder="Email"
-//                     className="forms_field-input"
-//                     required
-//                   />
-//                 </div>
-//                 <div className="forms_field">
-//                   <input
-//                     onChange={(e) => setPassword(e.target.value)}
-//                     type="password"
-//                     placeholder="Password"
-//                     className="forms_field-input"
-//                     required
-//                   />
-//                 </div>
-//               </fieldset>
-//               <div className="forms_buttons">
-//                 <input
-//                   type="submit"
-//                   value="Sign up"
-//                   className="forms_buttons-action"
-//                 />
-//               </div>
-//             </form>
-//           </div>
-//         </div>
-//       </div>
-//     </section>
-//   );
-// }
-
-// export default Login;
-
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import "../Login.css";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext"; // ✅ using context
+import { AuthContext } from "../context/AuthContext";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -202,9 +12,8 @@ function Login() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const navigate = useNavigate();
-  const { login } = useContext(AuthContext); // ✅ for login/signup only
+  const { login } = useContext(AuthContext);
 
-  // 🔹 Login handler (context + token save)
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -214,7 +23,7 @@ function Login() {
       });
 
       if (res.data?.token) {
-        login(res.data.token, res.data.user); 
+        login(res.data.token, res.data.user);
         alert("Login successful!");
         navigate("/");
       } else {
@@ -226,7 +35,6 @@ function Login() {
     }
   };
 
-  // 🔹 Signup handler (context-based)
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
@@ -243,9 +51,8 @@ function Login() {
     }
   };
 
-
   const handleLogout = () => {
-    localStorage.removeItem("token"); // optional: remove saved token
+    localStorage.removeItem("token");
     alert("You have been logged out!");
     setActive("login");
   };
@@ -253,7 +60,6 @@ function Login() {
   return (
     <section className="user">
       <div className="user_options-container">
-        {/* === Left / Right Panels === */}
         <div className="user_options-text">
           <div className="user_options-unregistered">
             <h2 className="user_unregistered-title">Don't have an account?</h2>
@@ -282,13 +88,11 @@ function Login() {
           </div>
         </div>
 
-        {/* === Forms === */}
         <div
           className={`user_options-forms ${
             active === "signup" ? "bounceLeft" : "bounceRight"
           }`}
         >
-          {/* === Login Form === */}
           <div
             className={`user_forms-login ${
               active === "login" ? "showForm" : ""
@@ -330,7 +134,6 @@ function Login() {
                   className="forms_buttons-action"
                 />
 
-                {/* 🔹 Logout visible beside login form */}
                 {active === "login" && (
                   <button
                     type="button"
@@ -353,7 +156,6 @@ function Login() {
             </form>
           </div>
 
-          {/* === Signup Form === */}
           <div
             className={`user_forms-signup ${
               active === "signup" ? "showForm" : ""
@@ -400,7 +202,6 @@ function Login() {
                   className="forms_buttons-action"
                 />
 
-                {/* 🔹 Logout visible beside signup form */}
                 {active === "signup" && (
                   <button
                     type="button"

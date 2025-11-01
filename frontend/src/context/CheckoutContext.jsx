@@ -1,10 +1,10 @@
 
 
-
-
 import React, { createContext, useContext, useState, useMemo } from "react";
 import axios from "axios";
 import { AuthContext } from "./AuthContext";
+import axiosInstance from "../utils/axiosInstance";
+
 
 const allServices = {
   'Web Application Security Audits': { id: 1, name: 'Web Application Security Audits', price: 499 },
@@ -47,21 +47,21 @@ export const CheckoutProvider = ({ children }) => {
 
   
   const saveCartToBackend = async () => {
-    try {
-      const res = await axios.post(
-        `${backendUrl}/api/cart/save`,
-        { cart, total, userDetails },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      console.log("✅ Cart saved:", res.data);
-    } catch (err) {
-      console.error("❌ Error saving cart:", err);
-    }
-  };
+  try {
+    const res = await axiosInstance.post(
+      "/api/cart/save",
+      { cart, total, userDetails },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log("✅ Cart saved:", res.data);
+  } catch (err) {
+    console.error("❌ Error saving cart:", err);
+  }
+};
 
   const value = {
     cart,

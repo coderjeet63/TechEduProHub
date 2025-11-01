@@ -9,6 +9,7 @@ export const clearAuth = () => {
   localStorage.removeItem('user');
 };
 
+
 export const getToken = () => {
   return localStorage.getItem('token');
 };
