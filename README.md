@@ -46,12 +46,13 @@ A full-stack MERN platform designed for secure course purchasing and professiona
 | Endpoint | Method | Description |
 | :--- | :--- | :--- |
 | `/api/auth/register` | `POST` | Handles new user registration. |
-| `/api/auth/login` | `POST` | Handles user login and issues a JWT. |
+| `/api/auth/login` | `POST` | Handles user login and issues an **Access Token** and **Refresh Token**. |
+| `/api/auth/refresh` | `POST` | Generates a new access token using the refresh token. |
+| `/api/auth/logout` | `POST` | Logs out user and invalidates both tokens. |
 | `/api/contact` | `POST` | Saves a user inquiry from the contact form. |
-| `/api/services` | `GET` | Fetches all available services/courses. |
 | `/api/cart` | `GET` | Fetches the current user's cart. |
-| `/api/cart/add` | `POST` | Adds a service to the user's cart. |
-| `/api/cart/remove` | `DELETE` | Removes a service from the user's cart. |
+| `/api/cart/save` | `POST` | Adds a service to the user's cart. |
+
 
 ---
 
