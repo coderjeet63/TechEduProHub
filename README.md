@@ -94,14 +94,14 @@ Make sure you have the following installed:
 2.  **Install Server Dependencies:**
     (Server folder mein jaayein)
     ```bash
-    cd server
+    cd backend
     npm install
     ```
 
 3.  **Install Client Dependencies:**
     (Client folder mein jaayein, naye terminal mein ya `cd ../client`)
     ```bash
-    cd ../client 
+    cd ../frontend
     npm install
     ```
 
